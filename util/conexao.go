@@ -3,9 +3,8 @@ package util
 import (
 	"time"
 
-	utils "github.com/furiousk/go.utils"
-
-	"gopkg.in/mgo.v2"
+	utils "github.com/furiousk/go.utils/utils"
+	mgo "gopkg.in/mgo.v2"
 )
 
 //Conn ....
