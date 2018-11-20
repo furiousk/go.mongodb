@@ -1,6 +1,7 @@
 package util
 
 import (
+	"log"
 	"strings"
 	"time"
 
@@ -29,9 +30,9 @@ func Conn() (session *mgo.Session, db string) {
 
 	_url := strings.Join([]string{_userpwsd, _p3}, "/")
 
-	session, err := mgo.Dial(_url)
+	log.Println(_url)
 
-	defer session.Close()
+	session, err := mgo.Dial(_url)
 
 	utils.Check(err)
 
