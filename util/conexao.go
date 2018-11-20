@@ -8,7 +8,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
-//Conn....
+//Conn faz a conexão em procução
 func Conn() (session *mgo.Session, db string) {
 
 	config := utils.ReadOptions(".env")
@@ -40,7 +40,7 @@ func Conn() (session *mgo.Session, db string) {
 	return
 }
 
-//ConnLocal....
+//ConnLocal faz a conexão ao servidor de desenvolvimento
 func ConnLocal() (session *mgo.Session, db string) {
 
 	config := utils.ReadOptions(".env")
