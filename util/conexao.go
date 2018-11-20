@@ -1,14 +1,47 @@
 package util
 
 import (
+	"strings"
 	"time"
 
 	utils "github.com/furiousk/go.utils/utils"
 	mgo "gopkg.in/mgo.v2"
 )
 
-//Conn ....
+//Conn....
 func Conn() (session *mgo.Session, db string) {
+
+	config := utils.ReadOptions(".env")
+
+	_host := config["DB_HOST"]
+	_port := config["DB_PORT"]
+	_mgdb := config["DB_DATABASE"]
+	_user := config["DB_USERNAME"]
+	_pwsd := config["DB_PASSWORD"]
+
+	db = config["DB_DATABASE"]
+
+	_p1 := strings.Join([]string{_user, _pwsd}, ":")
+	_p2 := strings.Join([]string{_host, _port}, ":")
+	_p3 := strings.Join([]string{_mgdb, "authSource=admin"}, "?")
+
+	_userpwsd := strings.Join([]string{_p1, _p2}, "@")
+
+	_url := strings.Join([]string{_userpwsd, _p3}, "/")
+
+	session, err := mgo.Dial(_url)
+
+	defer session.Close()
+
+	utils.Check(err)
+
+	session.SetMode(mgo.Monotonic, true)
+
+	return
+}
+
+//ConnLocal....
+func ConnLocal() (session *mgo.Session, db string) {
 
 	config := utils.ReadOptions(".env")
 
