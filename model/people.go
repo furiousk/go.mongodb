@@ -8,7 +8,8 @@ import (
 
 type Pessoa struct {
 	ID        bson.ObjectId `bson:"_id,omitempty"`
-	Nome      string        `bson:"name"`
+	Image     string        `bson:"image"`
+	Nome      string        `bson:"nome"`
 	Email     string        `bson:"email"`
 	Matricula float64       `bson:"matricula"`
 	Status    bool          `bson:"status"`
