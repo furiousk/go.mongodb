@@ -6,14 +6,17 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type Point struct {
-	ID       bson.ObjectId `bson:"_id,omitempty"`
-	Geometry struct {
-		Type        string    `bson:"type"`
-		Coordinates []float64 `bson:"coordinates"`
+type (
+	Geo struct {
+		Type        string     `bson:"type"`
+		Coordinates [2]float64 `bson:"coordinates"`
 	}
-	Address   bson.ObjectId `bson:"address"`
-	Status    bool          `bson:"status"`
-	CreatedAt time.Time     `bson:"createdAt,omitempty"`
-	UpdatedAt time.Time     `bson:"updatedAt,omitempty"`
-}
+	Point struct {
+		ID        bson.ObjectId `bson:"_id,omitempty"`
+		Geometry  Geo           `bson:"geometry"`
+		Address   bson.ObjectId `bson:"address"`
+		Status    bool          `bson:"status"`
+		CreatedAt time.Time     `bson:"createdAt,omitempty"`
+		UpdatedAt time.Time     `bson:"updatedAt,omitempty"`
+	}
+)
