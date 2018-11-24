@@ -64,10 +64,9 @@ func ConnLocal() (session *mgo.Session, db string) {
 	return
 }
 
-func GetConnection(collection string) (c *Collection) {
+func SetCollection(collection string) (c *mgo.Collection, session *mgo.Session) {
 
 	session, db := ConnLocal()
-	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
 	c = session.DB(db).C(collection)
 
