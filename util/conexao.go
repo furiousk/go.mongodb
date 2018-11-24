@@ -1,25 +1,43 @@
 package util
 
 import (
+	"log"
 	"strings"
 	"time"
 
+	"github.com/furiousk/go.models/models"
 	utils "github.com/furiousk/go.utils/utils"
 	mgo "gopkg.in/mgo.v2"
 )
 
+func Connect() (session *mgo.Session, db string) {
+
+	ENVIRONMENT := utils.ReadOptions(".env")
+
+	switch ENVIRONMENT.Appenv {
+
+	case "development":
+		return ConnLocal(ENVIRONMENT)
+
+	case "production":
+		return Conn(ENVIRONMENT)
+
+	default:
+		log.Println("Não encontrado!")
+		return session, ""
+	}
+}
+
 //Conn faz a conexão em procução
-func Conn() (session *mgo.Session, db string) {
+func Conn(config *models.Environment) (session *mgo.Session, db string) {
 
-	config := utils.ReadOptions(".env")
+	_host := config.Dbhost
+	_port := config.Dbport
+	_mgdb := config.Dbdatabase
+	_user := config.Dbusername
+	_pwsd := config.Dbpassword
 
-	_host := config["DB_HOST"]
-	_port := config["DB_PORT"]
-	_mgdb := config["DB_DATABASE"]
-	_user := config["DB_USERNAME"]
-	_pwsd := config["DB_PASSWORD"]
-
-	db = config["DB_DATABASE"]
+	db = config.Dbpassword
 
 	_p1 := strings.Join([]string{_user, _pwsd}, ":")
 	_p2 := strings.Join([]string{_host, _port}, ":")
@@ -39,14 +57,12 @@ func Conn() (session *mgo.Session, db string) {
 }
 
 //ConnLocal faz a conexão ao servidor de desenvolvimento
-func ConnLocal() (session *mgo.Session, db string) {
+func ConnLocal(config *models.Environment) (session *mgo.Session, db string) {
 
-	config := utils.ReadOptions(".env")
+	_host := config.Dbhost + ":" + config.Dbport
+	_mgdb := config.Dbdatabase
 
-	_host := config["DB_HOST"] + ":" + config["DB_PORT"]
-	_mgdb := config["DB_DATABASE"]
-
-	db = config["DB_DATABASE"]
+	db = config.Dbdatabase
 
 	mongoDBDialInfo := &mgo.DialInfo{
 
@@ -66,8 +82,7 @@ func ConnLocal() (session *mgo.Session, db string) {
 
 func SetCollection(collection string) (c *mgo.Collection, session *mgo.Session) {
 
-	session, db := ConnLocal()
-	session.SetMode(mgo.Monotonic, true)
+	session, db := Connect()
 	c = session.DB(db).C(collection)
 
 	return
