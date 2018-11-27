@@ -37,7 +37,7 @@ func Conn(config *models.Environment) (session *mgo.Session, db string) {
 	_user := config.Dbusername
 	_pwsd := config.Dbpassword
 
-	db = config.Dbpassword
+	db = config.Dbdatabase
 
 	_p1 := strings.Join([]string{_user, _pwsd}, ":")
 	_p2 := strings.Join([]string{_host, _port}, ":")
