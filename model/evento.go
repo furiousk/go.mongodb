@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+//Evento ....
 type Evento struct {
 	ID          bson.ObjectId `bson:"_id,omitempty"`
 	Name        string        `bson:"name"`

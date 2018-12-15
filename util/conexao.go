@@ -10,6 +10,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
+//Connect ....
 func Connect() (session *mgo.Session, db string) {
 
 	ENVIRONMENT := utils.ReadOptions(".env")
@@ -80,6 +81,7 @@ func ConnLocal(config *models.Environment) (session *mgo.Session, db string) {
 	return
 }
 
+//SetCollection ....
 func SetCollection(collection string) (c *mgo.Collection, session *mgo.Session) {
 
 	session, db := Connect()

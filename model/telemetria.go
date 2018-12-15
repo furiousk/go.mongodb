@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+//Telemetria ....
 type Telemetria struct {
 	ID        bson.ObjectId `bson:"_id,omitempty"`
 	Serial    int           `bson:"serial"`

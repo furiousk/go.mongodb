@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+//Pessoa ....
 type Pessoa struct {
 	ID        bson.ObjectId `bson:"_id,omitempty"`
 	Image     string        `bson:"image"`

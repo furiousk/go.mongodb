@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+//User .....
 type User struct {
 	ID        bson.ObjectId   `bson:"_id,omitempty"`
 	LastLogin time.Time       `bson:"last_login"`

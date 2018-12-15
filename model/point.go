@@ -7,10 +7,12 @@ import (
 )
 
 type (
+	//Geo ....
 	Geo struct {
 		Type        string     `bson:"type"`
 		Coordinates [2]float64 `bson:"coordinates"`
 	}
+	//Point ....
 	Point struct {
 		ID        bson.ObjectId `bson:"_id,omitempty"`
 		Geometry  Geo           `bson:"geometry"`

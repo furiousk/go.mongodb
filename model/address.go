@@ -7,9 +7,11 @@ import (
 )
 
 type (
+	//Props ...
 	Props struct {
 		FormattedAddress string `bson:"formatted_address" json:"formatted_address"`
 	}
+	//Address ...
 	Address struct {
 		ID         bson.ObjectId `bson:"_id,omitempty" json:"_id"`
 		Properties Props         `bson:"properties" json:"properties"`
